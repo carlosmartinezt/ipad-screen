@@ -25,7 +25,15 @@ body {
   grid-template-rows: auto auto auto 1fr;
   height: 100vh;
   padding: 2vh 3vw;
-  gap: 2vh;
+  gap: 1.5vh;
+}
+
+.bottom-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2vw;
+  overflow: hidden;
+  min-height: 0;
 }
 
 .weather {

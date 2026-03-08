@@ -56,6 +56,7 @@ export default function Weather() {
 
   return (
     <div className="weather">
+      <h2 className="widget-title">🌡️ Weather</h2>
       <div className="weather-current">
         <span className="weather-icon">{icon}</span>
         <span className="weather-temp">{formatTemp(temperature_2m)}</span>

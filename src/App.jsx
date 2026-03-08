@@ -10,8 +10,10 @@ export default function App() {
       <Clock />
       <Countdown />
       <Motivator />
-      <Weather />
-      <Calendar />
+      <div className="bottom-row">
+        <Calendar />
+        <Weather />
+      </div>
     </div>
   )
 }
