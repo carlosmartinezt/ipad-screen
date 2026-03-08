@@ -1,0 +1,24 @@
+{
+  "school": {
+    "doorsCloseAt": "08:36",
+    "walkMinutes": 10,
+    "timezone": "America/New_York"
+  },
+  "thresholds": {
+    "greenMinutes": 10,
+    "yellowMinutes": 5
+  },
+  "calendars": [],
+  "friends": [
+    { "name": "Noah", "windowStart": "08:10", "windowEnd": "08:20" },
+    { "name": "Kate", "windowStart": "08:12", "windowEnd": "08:22" }
+  ],
+  "randomMessages": [
+    "Early birds get the best spot in line!",
+    "The playground before school is the best part of the day!",
+    "Walking together is way more fun than running alone!",
+    "On-time kids get to pick their favourite seat!",
+    "Champions are always ready before the bell!"
+  ],
+  "daysOff": []
+}
