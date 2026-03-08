@@ -15,8 +15,6 @@ function parseTime(timeStr, now, timezone) {
 }
 
 function isWeekend(now, timezone) {
-  const day = parseInt(now.toLocaleDateString('en-US', { timeZone: timezone, weekday: 'narrow' === 'narrow' ? undefined : undefined }), 10)
-  // Get the day of week in the target timezone
   const dayName = now.toLocaleDateString('en-US', { timeZone: timezone, weekday: 'short' })
   return dayName === 'Sat' || dayName === 'Sun'
 }
