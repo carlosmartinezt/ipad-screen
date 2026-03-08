@@ -3,12 +3,14 @@ import express from 'express'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 import configRoute from './routes/config.js'
+import weatherRoute from './routes/weather.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const app = express()
 const PORT = 3055
 
 app.get('/api/config', configRoute)
+app.get('/api/weather', weatherRoute)
 
 // Serve static build in production
 const distPath = join(__dirname, '..', 'dist')
