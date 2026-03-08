@@ -1,6 +1,7 @@
 import Clock from './components/Clock'
 import Countdown from './components/Countdown'
 import Weather from './components/Weather'
+import Calendar from './components/Calendar'
 
 export default function App() {
   return (
@@ -8,6 +9,7 @@ export default function App() {
       <Clock />
       <Countdown />
       <Weather />
+      <Calendar />
     </div>
   )
 }
