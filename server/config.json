@@ -8,7 +8,12 @@
     "greenMinutes": 10,
     "yellowMinutes": 5
   },
-  "calendars": [],
+  "calendars": [
+    {
+      "name": "Family",
+      "url": "https://calendar.google.com/calendar/ical/family04397189474637916029%40group.calendar.google.com/public/basic.ics"
+    }
+  ],
   "friends": [
     { "name": "Noah", "windowStart": "08:10", "windowEnd": "08:20" },
     { "name": "Kate", "windowStart": "08:12", "windowEnd": "08:22" }

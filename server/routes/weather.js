@@ -10,7 +10,7 @@ export default async function weatherRoute(req, res) {
   }
 
   try {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,weather_code&hourly=precipitation_probability&temperature_unit=celsius&timezone=America%2FNew_York&forecast_days=1`
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,weather_code&hourly=temperature_2m,weather_code,precipitation_probability&temperature_unit=celsius&timezone=America%2FNew_York&forecast_days=2`
     const resp = await fetch(url)
     const json = await resp.json()
     cache = { data: json, timestamp: now }

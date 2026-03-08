@@ -30,7 +30,28 @@ const WMO_CODES = {
 }
 
 function cToF(c) { return Math.round(c * 9 / 5 + 32) }
-function formatTemp(c) { return `${Math.round(c)}°C / ${cToF(c)}°F` }
+
+function getHourlyForecast(data) {
+  if (!data.hourly?.time || !data.hourly?.temperature_2m || !data.hourly?.weather_code) return []
+
+  const nowHour = parseInt(new Date().toLocaleString('en-US', { timeZone: 'America/New_York', hour: 'numeric', hour12: false }))
+  const todayStr = new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' })
+  const startIndex = data.hourly.time.findIndex(t => t === `${todayStr}T${String(nowHour).padStart(2, '0')}:00`)
+
+  if (startIndex === -1) return []
+
+  const hours = []
+  for (let i = startIndex + 1; i < startIndex + 13 && i < data.hourly.time.length; i++) {
+    const time = new Date(data.hourly.time[i] + ':00')
+    const hour = time.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, timeZone: 'America/New_York' })
+    const temp = data.hourly.temperature_2m[i]
+    const code = data.hourly.weather_code[i]
+    const [icon] = WMO_CODES[code] || ['❓']
+    const precip = data.hourly.precipitation_probability?.[i]
+    hours.push({ hour, temp, icon, precip })
+  }
+  return hours
+}
 
 export default function Weather() {
   const data = usePolling('/api/weather', 15 * 60 * 1000)
@@ -41,34 +62,33 @@ export default function Weather() {
   const [icon, description] = WMO_CODES[weather_code] || ['❓', 'Unknown']
   const high = data.daily?.temperature_2m_max?.[0]
   const low = data.daily?.temperature_2m_min?.[0]
-
-  // Check precipitation probability in the next 2 hours
-  let rainAlert = null
-  if (data.hourly?.precipitation_probability) {
-    const nowHour = parseInt(new Date().toLocaleString('en-US', { timeZone: 'America/New_York', hour: 'numeric', hour12: false }))
-    const hourIndex = nowHour
-    const next2h = data.hourly.precipitation_probability.slice(hourIndex, hourIndex + 2)
-    const maxProb = Math.max(...next2h)
-    if (maxProb > 30) {
-      rainAlert = `🌧️ ${maxProb}% chance of rain in the next 2 hours`
-    }
-  }
+  const hourly = getHourlyForecast(data)
 
   return (
     <div className="weather">
       <h2 className="widget-title">🌡️ Weather</h2>
       <div className="weather-current">
         <span className="weather-icon">{icon}</span>
-        <span className="weather-temp">{formatTemp(temperature_2m)}</span>
+        <span className="weather-temp">{Math.round(temperature_2m)}° / {cToF(temperature_2m)}°F</span>
       </div>
       <div className="weather-details">
-        <span>{description}</span>
-        <span>Feels like {formatTemp(apparent_temperature)}</span>
+        <span>{description} · Feels {Math.round(apparent_temperature)}°</span>
         {high != null && low != null && (
-          <span>H: {formatTemp(high)} · L: {formatTemp(low)}</span>
+          <span>H: {Math.round(high)}° · L: {Math.round(low)}°</span>
         )}
-        {rainAlert && <span className="weather-rain-alert">{rainAlert}</span>}
       </div>
+      {hourly.length > 0 && (
+        <div className="weather-hourly">
+          {hourly.map((h, i) => (
+            <div key={i} className="weather-hour">
+              <span className="weather-hour-time">{h.hour}</span>
+              <span className="weather-hour-icon">{h.icon}</span>
+              <span className="weather-hour-temp">{Math.round(h.temp)}°</span>
+              {h.precip > 20 && <span className="weather-hour-rain">{h.precip}%</span>}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
