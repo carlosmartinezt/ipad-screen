@@ -38,3 +38,7 @@ There are no tests or linting configured.
 
 - When changes are ready, always merge them into `master` (not `main`) so they deploy. Don't leave work only on feature branches.
 - After merging, create a PR if possible, or merge locally and push `master` directly.
+
+## Context Compounding
+
+Every session should leave this repo easier to work with next time. When you learn something — a gotcha, a pattern, a constraint, an environment quirk — update this file or relevant docs so future sessions benefit. Don't just solve the problem; capture the lesson.
