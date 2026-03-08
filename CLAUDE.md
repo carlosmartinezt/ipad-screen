@@ -33,3 +33,8 @@ There are no tests or linting configured.
 **Timezone handling:** All time logic uses `America/New_York` timezone via `toLocaleDateString`/`toLocaleTimeString` with `timeZone` option. The `parseTime()` helper in Countdown.jsx converts "HH:MM" strings to timezone-aware Date objects.
 
 **Production:** Built frontend served as static files by Express. PWA manifest at `public/manifest.json`. Systemd service config exists in `docs/plans/`.
+
+## Workflow
+
+- When changes are ready, always merge them into `master` (not `main`) so they deploy. Don't leave work only on feature branches.
+- After merging, create a PR if possible, or merge locally and push `master` directly.
