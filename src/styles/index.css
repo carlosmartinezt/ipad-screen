@@ -11,6 +11,15 @@ body {
 
 #root { height: 100%; width: 100%; }
 
+.clock {
+  font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 12vw;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+}
+
 .dashboard {
   display: grid;
   grid-template-rows: auto auto auto 1fr;

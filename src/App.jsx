@@ -1,3 +1,9 @@
+import Clock from './components/Clock'
+
 export default function App() {
-  return <div className="dashboard">Morning Dashboard</div>
+  return (
+    <div className="dashboard">
+      <Clock />
+    </div>
+  )
 }
