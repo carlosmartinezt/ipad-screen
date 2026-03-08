@@ -76,6 +76,39 @@ body::after {
   height: 100vh;
   padding: 3vh 4vw;
   gap: 2vh;
+  position: relative;
+}
+
+/* ── Fullscreen button ── */
+.fullscreen-btn {
+  position: absolute;
+  top: 1.5vh;
+  right: 1.5vw;
+  z-index: 10;
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 0.6rem;
+  color: var(--neon-cyan);
+  font-size: 2.8vh;
+  width: 5vh;
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.3s, border-color 0.3s, box-shadow 0.3s;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.fullscreen-btn:hover,
+.fullscreen-btn:active {
+  opacity: 1;
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.25);
 }
 
 /* ── Clock — hero neon with adjustable glow ── */
