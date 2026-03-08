@@ -18,7 +18,9 @@ app.get('/api/calendar', calendarRoute)
 const distPath = join(__dirname, '..', 'dist')
 app.use(express.static(distPath))
 app.get('/{*splat}', (req, res) => {
-  res.sendFile(join(distPath, 'index.html'))
+  res.sendFile(join(distPath, 'index.html'), (err) => {
+    if (err) res.status(404).send('Build not found. Run npm run build first.')
+  })
 })
 
 app.listen(PORT, '0.0.0.0', () => {

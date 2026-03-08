@@ -2,12 +2,15 @@ import { useState, useEffect } from 'react'
 import { useTime } from '../hooks/useTime'
 import { usePolling } from '../hooks/usePolling'
 
-// Parse "HH:MM" string into a Date for today
-function parseTime(timeStr, now) {
+// Parse "HH:MM" into a Date object for today in the given timezone
+function parseTime(timeStr, now, timezone) {
   const [h, m] = timeStr.split(':').map(Number)
-  const d = new Date(now)
-  d.setHours(h, m, 0, 0)
-  return d
+  const dateStr = now.toLocaleDateString('en-CA', { timeZone: timezone }) // YYYY-MM-DD
+  const dt = new Date(`${dateStr}T${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:00`)
+  const utcTarget = new Date(dt.toLocaleString('en-US', { timeZone: 'UTC' }))
+  const tzTarget = new Date(dt.toLocaleString('en-US', { timeZone: timezone }))
+  const offset = utcTarget - tzTarget
+  return new Date(dt.getTime() + offset)
 }
 
 export default function Motivator() {
@@ -23,21 +26,22 @@ export default function Motivator() {
   if (!config) return null
 
   const { school, friends, randomMessages, daysOff } = config
-  const tzNow = new Date(now.toLocaleString('en-US', { timeZone: school.timezone }))
+  const timezone = school.timezone
 
   // Only show on school mornings
-  const day = tzNow.getDay()
-  if (day === 0 || day === 6) return null
-  if (daysOff?.includes(tzNow.toISOString().split('T')[0])) return null
+  const dayOfWeek = now.toLocaleDateString('en-US', { timeZone: timezone, weekday: 'short' })
+  if (dayOfWeek === 'Sat' || dayOfWeek === 'Sun') return null
+  const todayStr = now.toLocaleDateString('en-CA', { timeZone: timezone })
+  if (daysOff?.includes(todayStr)) return null
 
-  const doorsClose = parseTime(school.doorsCloseAt, tzNow)
-  if (tzNow > doorsClose) return null
+  const doorsClose = parseTime(school.doorsCloseAt, now, timezone)
+  if (now > doorsClose) return null
 
   // Check for friends in their window
   const availableFriends = (friends || []).filter(f => {
-    const start = parseTime(f.windowStart, tzNow)
-    const end = parseTime(f.windowEnd, tzNow)
-    return tzNow >= start && tzNow <= end
+    const start = parseTime(f.windowStart, now, timezone)
+    const end = parseTime(f.windowEnd, now, timezone)
+    return now >= start && now <= end
   })
 
   let message = ''

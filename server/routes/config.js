@@ -9,7 +9,9 @@ const configPath = join(__dirname, '..', 'config.json')
 export default function configRoute(req, res) {
   try {
     const raw = readFileSync(configPath, 'utf-8')
-    res.json(JSON.parse(raw))
+    const config = JSON.parse(raw)
+    const { calendars, ...safeConfig } = config
+    res.json(safeConfig)
   } catch (err) {
     res.status(500).json({ error: 'Failed to read config' })
   }

@@ -25,10 +25,8 @@ export default async function calendarRoute(req, res) {
       return res.json([])
     }
 
-    const todayStart = new Date()
-    todayStart.setHours(0, 0, 0, 0)
-    const todayEnd = new Date()
-    todayEnd.setHours(23, 59, 59, 999)
+    const tz = config.school?.timezone || 'America/New_York'
+    const todayStr = new Date().toLocaleDateString('en-CA', { timeZone: tz })
 
     const allEvents = []
 
@@ -43,8 +41,9 @@ export default async function calendarRoute(req, res) {
         for (const vevent of vevents) {
           const event = new ICAL.Event(vevent)
           const start = event.startDate.toJSDate()
+          const eventDateStr = start.toLocaleDateString('en-CA', { timeZone: tz })
 
-          if (start >= todayStart && start <= todayEnd) {
+          if (eventDateStr === todayStr) {
             allEvents.push({
               summary: event.summary,
               start: start.toISOString(),

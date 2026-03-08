@@ -45,8 +45,8 @@ export default function Weather() {
   // Check precipitation probability in the next 2 hours
   let rainAlert = null
   if (data.hourly?.precipitation_probability) {
-    const now = new Date()
-    const hourIndex = now.getHours()
+    const nowHour = parseInt(new Date().toLocaleString('en-US', { timeZone: 'America/New_York', hour: 'numeric', hour12: false }))
+    const hourIndex = nowHour
     const next2h = data.hourly.precipitation_probability.slice(hourIndex, hourIndex + 2)
     const maxProb = Math.max(...next2h)
     if (maxProb > 30) {
