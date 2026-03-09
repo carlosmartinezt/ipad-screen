@@ -6,7 +6,7 @@ function parseTime(timeStr, now, timezone) {
   const [h, m] = timeStr.split(':').map(Number)
   // Build a date for today in the target timezone
   const dateStr = now.toLocaleDateString('en-CA', { timeZone: timezone }) // YYYY-MM-DD
-  const dt = new Date(`${dateStr}T${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:00`)
+  const dt = new Date(`${dateStr}T${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:00Z`)
   // Adjust for timezone offset: we need the absolute instant when it's HH:MM in that timezone
   const utcTarget = new Date(dt.toLocaleString('en-US', { timeZone: 'UTC' }))
   const tzTarget = new Date(dt.toLocaleString('en-US', { timeZone: timezone }))
