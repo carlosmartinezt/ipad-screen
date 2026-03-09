@@ -36,8 +36,8 @@ There are no tests or linting configured.
 
 ## Workflow
 
-- When changes are ready, always merge them into `master` (not `main`) so they deploy. Don't leave work only on feature branches.
-- Claude Code web sessions can only push to `claude/*` branches (403 on `master`). To get changes to `master`, push the feature branch and ask the user to merge via GitHub PR at: `github.com/carlosmartinezt/ipad-screen/compare/<branch-name>`
+- Push directly to `master` — no PRs, no feature branches. Solo developer repo.
+- Claude Code **web sessions** can only push to `claude/*` branches (403 on `master`). To get changes to `master`, push the feature branch and ask the user to merge via GitHub PR at: `github.com/carlosmartinezt/ipad-screen/compare/<branch-name>`
 
 ## Context Compounding
 
