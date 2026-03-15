@@ -5,8 +5,8 @@
 
 /* ── Palette ── */
 :root {
-  --bg-deep: #06060e;
-  --bg-mid: #0d0b1a;
+  --bg-deep: #050a1a;
+  --bg-mid: #0a1230;
   --neon-cyan: #00e5ff;
   --neon-pink: #ff2d78;
   --neon-purple: #b14aed;
@@ -503,6 +503,55 @@ body::after {
 @keyframes pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.6; }
+}
+
+/* ── Floating balloon ── */
+.balloon-container {
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: left 0.3s ease-out, top 0.3s ease-out;
+}
+
+.balloon-body {
+  width: 7vh;
+  height: 8.5vh;
+  background: radial-gradient(circle at 35% 30%, #ff6b8a, #e8365d 60%, #c41e4a);
+  border-radius: 50% 50% 50% 50% / 55% 55% 45% 45%;
+  position: relative;
+  box-shadow:
+    inset -8px -6px 16px rgba(0, 0, 0, 0.2),
+    inset 6px 6px 12px rgba(255, 255, 255, 0.25),
+    0 0 20px rgba(232, 54, 93, 0.3);
+}
+
+/* Shine highlight */
+.balloon-body::before {
+  content: '';
+  position: absolute;
+  width: 2vh;
+  height: 3vh;
+  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.5), transparent);
+  border-radius: 50%;
+  top: 15%;
+  left: 22%;
+  transform: rotate(-20deg);
+}
+
+.balloon-knot {
+  width: 1.2vh;
+  height: 1.2vh;
+  background: #c41e4a;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  margin: -1px auto 0;
+}
+
+.balloon-string {
+  width: 1px;
+  height: 8vh;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
+  margin: 0 auto;
 }
 
 /* ── Flappy Bird easter egg ── */

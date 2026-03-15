@@ -4,6 +4,7 @@ import Countdown from './components/Countdown'
 import Motivator from './components/Motivator'
 import Weather from './components/Weather'
 import Calendar from './components/Calendar'
+import Balloon from './components/Balloon'
 
 const FlappyBird = lazy(() => import('./components/FlappyBird'))
 
@@ -53,6 +54,7 @@ export default function App() {
 
   return (
     <div className="dashboard" onClick={handleDashboardTap}>
+      <Balloon />
       <button className="fullscreen-btn" onClick={toggleFullscreen} aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}>
         {isFullscreen ? '⊡' : '⊞'}
       </button>
